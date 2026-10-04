@@ -4,8 +4,7 @@ export const site = {
   name: '行人易安科技',
   email: 'chansyl8187@gmail.com',
   phone: '13067882884',
-  // Put an approved QR code in public/images and set its path here.
-  wechatQr: '' as string,
+  wechatQr: 'images/xingren_wechat.png',
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   url: process.env.NEXT_PUBLIC_SITE_URL || '',
   indexable: process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true',

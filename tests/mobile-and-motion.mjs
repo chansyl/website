@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { mockOmegaReports } from './omega-mock.mjs';
 import assert from 'node:assert/strict';
 const base = process.env.TEST_URL || 'http://127.0.0.1:4173/website/xingren-yian/';
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || 'chrome' });
@@ -9,6 +10,7 @@ try {
     isMobile: true,
     hasTouch: true,
   });
+  await mockOmegaReports(context);
   const page = await context.newPage();
   await page.goto(base, { waitUntil: 'networkidle' });
   assert.equal(await page.evaluate(() => innerWidth), 390);

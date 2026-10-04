@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { ArrowUpRight, Copy, EnvelopeSimple } from '@phosphor-icons/react';
 import { services } from '@/content/services';
 import { site } from '@/lib/site';
+import { reportRequirementSummary } from '@/lib/analytics';
 export function ContactForm() {
   const params = useSearchParams();
   const requested = params.get('service');
@@ -25,10 +26,10 @@ export function ContactForm() {
       return;
     }
     const name = services.find((s) => s.slug === service)?.name || '项目定制';
-    setSummary(
-      `你好，行人易安科技！\n\n我想咨询：${name}\n企业 / 称呼：${value('company') || '待沟通'}\n\n项目想法：\n${value('needs')}\n\n期望时间：${value('timeline') || '一起讨论'}\n预算范围：${value('budget') || '一起评估'}\n联系方式：${value('contact') || '通过当前渠道沟通'}\n\n期待进一步了解合作方式。`,
-    );
-    setMessage('摘要已生成，还未发送。可复制到微信，或打开邮件继续。');
+    const generatedSummary = `你好，行人易安科技！\n\n我想咨询：${name}\n企业 / 称呼：${value('company') || '待沟通'}\n\n项目想法：\n${value('needs')}\n\n期望时间：${value('timeline') || '一起讨论'}\n预算范围：${value('budget') || '一起评估'}\n联系方式：${value('contact') || '通过当前渠道沟通'}\n\n期待进一步了解合作方式。`;
+    setSummary(generatedSummary);
+    reportRequirementSummary(generatedSummary);
+    setMessage('摘要已生成。可复制到微信，或打开邮件继续沟通。');
     requestAnimationFrame(() => {
       result.current?.scrollIntoView({
         behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -127,7 +128,7 @@ export function ContactForm() {
           />
         </div>
         <p className="form-note">
-          填写内容仅在当前页面整理，不会自动提交或保存。生成摘要后，由你选择复制或通过自己的邮箱发送。
+          点击“整理我的需求”将向行人易安科技发送需求摘要（含你填写的联系方式），用于需求沟通统计。你也可以复制摘要或通过自己的邮箱继续联系。
         </p>
         <button className="button button-primary" type="submit">
           整理我的需求 <ArrowUpRight size={19} />

@@ -26,7 +26,11 @@ try {
     await setTimeout(250);
   }
   if (!ready) throw new Error('Preview server did not become ready');
-  for (const file of ['tests/browser.mjs', 'tests/mobile-and-motion.mjs']) {
+  for (const file of [
+    'tests/browser.mjs',
+    'tests/mobile-and-motion.mjs',
+    'tests/contact-report.mjs',
+  ]) {
     const code = await new Promise((resolve, reject) => {
       const child = spawn(process.execPath, [file], {
         env: { ...process.env, TEST_URL: base },

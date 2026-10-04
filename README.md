@@ -54,7 +54,7 @@ pnpm test:browser
 pnpm test:mobile
 ```
 
-浏览器验收需先运行产物预览，默认使用本机 Chrome 的独立无头实例。覆盖 320、375、390、430、768、1024、1440 像素，以及菜单、服务导航、双端演示、流程展开、表单必填校验、服务预选、摘要和复制。另有 390 × 844、DPR 3 的触控与减少动态效果、暂停动画、键盘入口和剪贴板拒绝权限回退检查。`pnpm test:production` 会在 4174 端口自动启动并结束验收专用预览，执行两组浏览器检查。截图与结果写入 `artifacts/qa/`，不提交 Git。可通过 `TEST_URL` 和 `BROWSER_CHANNEL` 调整地址与浏览器。
+浏览器验收需先运行产物预览，默认使用本机 Chrome 的独立无头实例。覆盖 320、375、390、430、768、1024、1440 像素，以及菜单、服务导航、双端演示、流程展开、表单必填校验、服务预选、摘要和复制。另有 390 × 844、DPR 3 的触控与减少动态效果、暂停动画、键盘入口和剪贴板拒绝权限回退检查。`pnpm test:production` 会在 4174 端口自动启动并结束验收专用预览，执行三组浏览器检查（含埋点成功、服务端错误和网络失败场景）。截图与结果写入 `artifacts/qa/`，不提交 Git。可通过 `TEST_URL` 和 `BROWSER_CHANNEL` 调整地址与浏览器。
 
 ## GitHub Pages 部署
 
@@ -68,12 +68,11 @@ pnpm test:mobile
 
 ## 联系方式与微信替换
 
-真实邮箱与电话已配置在 `sites/xingren-yian/src/lib/site.ts`。收到微信二维码后：
+真实邮箱、电话与微信二维码路径已配置在 `sites/xingren-yian/src/lib/site.ts`。当前二维码使用 `sites/xingren-yian/public/images/xingren_wechat.png`，联系页可扫码或点击查看原图。
 
-1. 将已确认图片放入 `sites/xingren-yian/public/images/wechat-qr.png`。
-2. 设置 `wechatQr: 'images/wechat-qr.png'`，重新构建即可。
+后续替换同名图片并重新构建即可；若使用新文件名，同步修改 `wechatQr` 配置。
 
-当前微信区域明确显示“二维码待更新”，没有虚假二维码。需求表单仅在浏览器整理摘要，不存储、不发送请求；用户可复制或通过自己的邮件客户端发送。关闭/刷新页面不会保留所填内容。
+点击“整理我的需求”并通过必填校验后，会在浏览器生成摘要，同时向 `https://xingrenyian.com/api/omega/report` 发送 JSON POST：`{ name: "xingrenyian_website_submit_ck", attr: { content: "本次生成的完整需求摘要" } }`。摘要包含用户填写的企业、需求和联系方式，页面已同步说明。上报为非阻塞请求，不携带 Cookie，不自动重试；失败不影响摘要、复制和邮件入口。关闭/刷新页面不会在本机保留所填内容。浏览器验收拦截此接口并验证参数，不向真实接口发送测试数据。
 
 ## 新增公司
 

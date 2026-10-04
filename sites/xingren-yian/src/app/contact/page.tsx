@@ -52,12 +52,19 @@ export default function ContactPage() {
           </a>
           <div className="wechat-area">
             {site.wechatQr ? (
-              <img
-                src={asset(site.wechatQr)}
-                alt="行人易安科技微信联系二维码"
-                width="108"
-                height="108"
-              />
+              <a
+                href={asset(site.wechatQr)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="查看微信二维码原图（新窗口）"
+              >
+                <img
+                  src={asset(site.wechatQr)}
+                  alt="行人易安科技微信联系二维码"
+                  width="108"
+                  height="108"
+                />
+              </a>
             ) : (
               <div className="qr-placeholder">
                 <WechatLogo size={32} weight="light" />
@@ -68,7 +75,7 @@ export default function ContactPage() {
               <h3>微信沟通</h3>
               <p>
                 {site.wechatQr
-                  ? '扫码添加，聊聊你的需求。'
+                  ? '扫码添加，或点开二维码查看原图。'
                   : '微信二维码即将补充，\n欢迎先通过邮件或电话联系。'}
               </p>
             </div>

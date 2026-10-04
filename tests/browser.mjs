@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { mockOmegaReports } from './omega-mock.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 const base = process.env.TEST_URL || 'http://127.0.0.1:4173/website/xingren-yian/';
@@ -18,6 +19,7 @@ try {
       reducedMotion: 'reduce',
       permissions: ['clipboard-read', 'clipboard-write'],
     });
+    const reports = await mockOmegaReports(context);
     const page = await context.newPage();
     page.on('pageerror', (e) => errors.push(`${width}: ${e.message}`));
     page.on('console', (m) => {
@@ -92,6 +94,7 @@ try {
     );
     await page.getByRole('button', { name: '整理我的需求', exact: true }).click();
     assert.equal(await page.locator('#needs').evaluate((e) => e.validity.valueMissing), true);
+    assert.equal(reports.length, 0, 'Invalid form must not report');
     await page.locator('#company').fill('示例企业（验收测试）');
     await page.locator('#needs').fill('希望展示产品和服务，电脑和手机都能顺畅浏览。');
     await page.locator('#timeline').selectOption({ label: '1–3 个月' });
@@ -108,6 +111,12 @@ try {
     );
     await page.getByRole('button', { name: '复制摘要' }).click();
     assert.equal(await page.evaluate(() => navigator.clipboard.readText()), summary);
+    assert.deepEqual(reports, [
+      {
+        method: 'POST',
+        body: { name: 'xingrenyian_website_submit_ck', attr: { content: summary } },
+      },
+    ]);
     await page.screenshot({ path: `${evidence}/contact-${width}.png`, fullPage: true });
     assert.ok(
       await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
