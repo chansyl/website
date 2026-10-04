@@ -1,1 +1,14 @@
-[{ "id": "xingren-yian", "enabled": true }]
+[
+  {
+    "id": "xingren-yian",
+    "enabled": true
+  },
+  {
+    "id": "demo-industrial-catalog",
+    "enabled": true
+  },
+  {
+    "id": "demo-precision-manufacturing",
+    "enabled": true
+  }
+]

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, List, X, Pause, Play, Planet } from '@phosphor-icons/react';
 
 const navLinks = [
+  ['行业示例', '/examples/'],
   ['服务能力', '/#services'],
   ['双端体验', '/#experience'],
   ['交付流程', '/#process'],

@@ -1,0 +1,143 @@
+.page {
+  max-width: 1320px;
+  margin: auto;
+  padding: 140px 40px 70px;
+}
+.intro {
+  max-width: 850px;
+  margin-bottom: 55px;
+}
+.intro h1 {
+  font-size: clamp(36px, 4.7vw, 64px);
+  line-height: 1.25;
+  margin: 20px 0 24px;
+}
+.intro > p:not(:first-child) {
+  color: #b5b4c5;
+  line-height: 1.9;
+}
+.categories {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+.categories a {
+  border: 1px solid #514369;
+  border-radius: 6px;
+  padding: 12px 22px;
+}
+.categories a:hover {
+  background: #30223f;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.card {
+  border: 1px solid #383144;
+  border-radius: 10px;
+  overflow: hidden;
+  scroll-margin-top: 110px;
+  background: #10101b;
+}
+.preview {
+  position: relative;
+  padding: 20px 55px 35px 20px;
+  background: #211d2b;
+  overflow: hidden;
+}
+.preview > img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.preview .phone {
+  position: absolute;
+  width: 24%;
+  height: auto;
+  right: 14px;
+  bottom: 10px;
+  border: 3px solid #29232e;
+  border-radius: 6px;
+  max-height: 90%;
+  object-fit: contain;
+}
+.copy {
+  padding: 28px;
+}
+.copy h2 {
+  font-size: 32px;
+  margin: 12px 0;
+}
+.copy p {
+  color: #c4c0d0;
+}
+.features {
+  font-size: 14px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+.actions svg {
+  width: 19px;
+}
+.comparison {
+  margin-top: 65px;
+}
+.comparison h2 {
+  font-size: 32px;
+}
+.compareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  margin: 25px 0;
+}
+.compareGrid > div {
+  border-top: 1px solid #4b4157;
+  padding-top: 20px;
+}
+.comparison p {
+  color: #beb8cd;
+  line-height: 1.8;
+}
+.note {
+  font-size: 13px;
+  color: #aaa0b7 !important;
+}
+@media (max-width: 750px) {
+  .page {
+    padding: 105px 20px 45px;
+  }
+  .intro {
+    margin-bottom: 30px;
+  }
+  .intro h1 {
+    font-size: clamp(27px, 8vw, 36px);
+    text-wrap: balance;
+  }
+  .grid,
+  .compareGrid {
+    grid-template-columns: 1fr;
+  }
+  .copy {
+    padding: 22px;
+  }
+  .copy h2 {
+    font-size: 27px;
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .categories a {
+    padding: 10px 16px;
+  }
+  .comparison h2 {
+    font-size: 27px;
+  }
+}

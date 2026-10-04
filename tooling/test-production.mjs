@@ -30,6 +30,7 @@ try {
     'tests/browser.mjs',
     'tests/mobile-and-motion.mjs',
     'tests/contact-report.mjs',
+    'tests/industrial-showcase.mjs',
   ]) {
     const code = await new Promise((resolve, reject) => {
       const child = spawn(process.execPath, [file], {

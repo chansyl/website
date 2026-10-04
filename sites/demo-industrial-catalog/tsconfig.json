@@ -1,0 +1,12 @@
+{
+  "extends": "@website/config/tsconfig",
+  "compilerOptions": { "plugins": [{ "name": "next" }], "paths": { "@/*": ["./src/*"] } },
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

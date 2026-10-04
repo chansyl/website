@@ -5,6 +5,7 @@ const root = resolve('.pages');
 const { prefix } = JSON.parse(await readFile(resolve(root, 'build-info.json'), 'utf8'));
 const port = Number(process.env.PORT || 4173);
 const mime = {
+  '.pdf': 'application/pdf',
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css',
   '.js': 'text/javascript',

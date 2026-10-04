@@ -20,12 +20,18 @@ for (const id of sites) {
     const html = await readFile(f, 'utf8');
     count++;
     if (!/<h1[\s>]/.test(html)) failures.push(`${f}: no h1`);
-    for (const match of html.matchAll(/(?:href|src)="([^"#]+)"/g)) {
-      const url = match[1].split(/[?#]/)[0];
+    for (const match of html.matchAll(/(href|src)="([^"#]+)"/g)) {
+      const url = match[2].split(/[?#]/)[0];
       if (/^(https?:|mailto:|tel:|data:)/.test(url)) continue;
       let target;
       if (url.startsWith('/')) {
-        if (!url.startsWith(`${prefix}/${id}/`) && url !== `${prefix}/${id}`) {
+        const allowedIds = match[1] === 'href' ? sites : [id];
+        if (
+          !allowedIds.some(
+            (targetId) =>
+              url.startsWith(`${prefix}/${targetId}/`) || url === `${prefix}/${targetId}`,
+          )
+        ) {
           failures.push(`${f}: wrong prefix ${url}`);
           continue;
         }

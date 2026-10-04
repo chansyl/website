@@ -29,6 +29,8 @@ pnpm preview
 
 ```text
 sites.manifest.json           站点启用清单
+sites/demo-industrial-catalog/       A 工业优选（工业品经销商）
+sites/demo-precision-manufacturing/  C 精工制造（小型制造商）
 sites/xingren-yian/           行人易安科技独立应用
   src/app/                   页面、SEO 与全局样式
   src/components/            导航、双端演示、需求表单等
@@ -54,7 +56,7 @@ pnpm test:browser
 pnpm test:mobile
 ```
 
-浏览器验收需先运行产物预览，默认使用本机 Chrome 的独立无头实例。覆盖 320、375、390、430、768、1024、1440 像素，以及菜单、服务导航、双端演示、流程展开、表单必填校验、服务预选、摘要和复制。另有 390 × 844、DPR 3 的触控与减少动态效果、暂停动画、键盘入口和剪贴板拒绝权限回退检查。`pnpm test:production` 会在 4174 端口自动启动并结束验收专用预览，执行三组浏览器检查（含埋点成功、服务端错误和网络失败场景）。截图与结果写入 `artifacts/qa/`，不提交 Git。可通过 `TEST_URL` 和 `BROWSER_CHANNEL` 调整地址与浏览器。
+浏览器验收需先运行产物预览，默认使用本机 Chrome 的独立无头实例。覆盖 320、375、390、430、768、1024、1440 像素，以及菜单、服务导航、双端演示、流程展开、表单必填校验、服务预选、摘要和复制。另有 390 × 844、DPR 3 的触控与减少动态效果、暂停动画、键盘入口和剪贴板拒绝权限回退检查。`pnpm test:production` 会在 4174 端口自动启动并结束验收专用预览，执行四组浏览器检查（含埋点成功、服务端错误和网络失败场景，以及工业示例站流程）。截图与结果写入 `artifacts/qa/`，不提交 Git。可通过 `TEST_URL` 和 `BROWSER_CHANNEL` 调整地址与浏览器。
 
 ## GitHub Pages 部署
 
@@ -74,6 +76,16 @@ pnpm test:mobile
 
 点击“整理我的需求”并通过必填校验后，会在浏览器生成摘要，同时向 `https://xingrenyian.com/api/omega/report` 发送 JSON POST：`{ name: "xingrenyian_website_submit_ck", attr: { content: "本次生成的完整需求摘要" } }`。摘要包含用户填写的企业、需求和联系方式，页面已同步说明。上报为非阻塞请求，不携带 Cookie，不自动重试；失败不影响摘要、复制和邮件入口。关闭/刷新页面不会在本机保留所填内容。浏览器验收拦截此接口并验证参数，不向真实接口发送测试数据。
 
+## 工业企业示例库
+
+官网的 `/examples/` 汇集 A 工业优选与 C 精工制造，可从导航的“行业示例”进入。两个站点拥有独立源码和 `dist/<site-id>/` 产物；开发时可分别运行 `pnpm --filter @website/demo-industrial-catalog dev`（3001）和 `pnpm --filter @website/demo-precision-manufacturing dev`（3002），同时启动官网以使用跨站咨询入口。生产路径跟随构建前缀自动生成。
+
+- A：12 款示例产品，支持搜索、品类及参数筛选、详情、询价数量调整和摘要复制。
+- C：4 个概念样件，支持加工能力、样件详情、需求预选、必填校验和摘要复制。
+- 两站的演示表单不发送网络请求；真实建站咨询经明确入口回到行人易安联系页。示例站始终禁止搜索索引。
+- 图片为生成式概念素材，品牌、产品与能力均为虚构展示。实际站点截图用于官网预览卡片；原稿与原始素材不进入部署目录。
+- `pnpm test:production` 共执行四组检查，包含工业示例七档宽度的完整流程。视觉比较可在启动预览后执行 `PREVIEW_ROOT=http://127.0.0.1:4173/website/ node tests/capture-industrial.mjs`，生成六张设计对照图。
+
 ## 新增公司
 
 在 `sites/<company-id>/` 建立独立 Next.js 应用，引用 `@website/config/next`，提供 `build`、`lint`、`typecheck` 脚本；在 `sites.manifest.json` 注册并设置 `enabled: true`。所有站点资源需带自身 `NEXT_PUBLIC_BASE_PATH`，页面用 Next.js Link。构建时从清单逐个生成 `dist/<company-id>`，再汇总部署。不同公司不通过运行时条件混在同一应用中。
@@ -85,5 +97,8 @@ pnpm test:mobile
 - [手机设计方案](docs/design/xingren-yian/mobile-design.md)
 - [官网文案](docs/design/xingren-yian/website-copy.md)
 - [视觉验收](design-qa.md)
+- [工业企业示例网站方案](docs/design/industrial-showcase/proposal.md)
+- [A+C 已确认电脑与手机效果稿](docs/design/industrial-showcase/mockups/README.md)
+- [工业示例图片来源与素材计划](docs/design/industrial-showcase/asset-plan.md)
 
 网站未引用外部组件站的源码或商业素材。星际背景与星球为本次生成并优化的图片，Phosphor 图标采用其开源库。原始图片保存在 `docs/design/xingren-yian/asset-sources/`，不进入网站部署产物。

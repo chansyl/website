@@ -8,6 +8,12 @@ import { reportRequirementSummary } from '@/lib/analytics';
 export function ContactForm() {
   const params = useSearchParams();
   const requested = params.get('service');
+  const example = (
+    {
+      'industrial-catalog': '工业优选 · 工业品经销商示例',
+      'precision-manufacturing': '精工制造 · 小型制造商示例',
+    } as Record<string, string>
+  )[params.get('example') || ''];
   const [selection, setService] = useState<string | null>(null);
   const service =
     selection || (services.some((s) => s.slug === requested) ? requested! : 'corporate-website');
@@ -26,7 +32,7 @@ export function ContactForm() {
       return;
     }
     const name = services.find((s) => s.slug === service)?.name || '项目定制';
-    const generatedSummary = `你好，行人易安科技！\n\n我想咨询：${name}\n企业 / 称呼：${value('company') || '待沟通'}\n\n项目想法：\n${value('needs')}\n\n期望时间：${value('timeline') || '一起讨论'}\n预算范围：${value('budget') || '一起评估'}\n联系方式：${value('contact') || '通过当前渠道沟通'}\n\n期待进一步了解合作方式。`;
+    const generatedSummary = `你好，行人易安科技！\n\n我想咨询：${name}${example ? `\n参考示例：${example}` : ''}\n企业 / 称呼：${value('company') || '待沟通'}\n\n项目想法：\n${value('needs')}\n\n期望时间：${value('timeline') || '一起讨论'}\n预算范围：${value('budget') || '一起评估'}\n联系方式：${value('contact') || '通过当前渠道沟通'}\n\n期待进一步了解合作方式。`;
     setSummary(generatedSummary);
     reportRequirementSummary(generatedSummary);
     setMessage('摘要已生成。可复制到微信，或打开邮件继续沟通。');
@@ -52,6 +58,11 @@ export function ContactForm() {
   }
   return (
     <div>
+      {example && (
+        <p className="form-note">
+          你正在咨询类似「{example}」的网站开发，由行人易安科技为你提供服务。
+        </p>
+      )}
       <form className="brief-form" onSubmit={generate}>
         <fieldset>
           <legend>你想打造什么？</legend>
