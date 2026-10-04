@@ -1,0 +1,27 @@
+{
+  "name": "company-websites",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @website/xingren-yian dev",
+    "build": "node tooling/build.mjs",
+    "build:site": "pnpm --filter @website/xingren-yian build",
+    "preview": "node tooling/preview.mjs",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "pnpm -r --if-present lint",
+    "test": "node --test tests/*.test.mjs",
+    "check:output": "node tooling/check-output.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "format": "prettier --write sites packages tooling tests .github package.json pnpm-workspace.yaml sites.manifest.json",
+    "test:production": "node tooling/test-production.mjs",
+    "test:mobile": "node tests/mobile-and-motion.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.58.2",
+    "prettier": "3.8.1",
+    "sharp": "0.34.5"
+  }
+}

@@ -7,3 +7,13 @@ node_modules/
 .vscode/
 
 .idea/
+.next/
+out/
+dist/
+.pages/
+*.tsbuildinfo
+.env*.local
+.DS_Store
+artifacts/
+
+.pages-staging/

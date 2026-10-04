@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+dist
+.pages
+.pages-staging
+pnpm-lock.yaml
+artifacts
+docs
