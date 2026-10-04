@@ -1,0 +1,9 @@
+temp/
+local/
+profiles/
+native
+node_modules/
+
+.vscode/
+
+.idea/
