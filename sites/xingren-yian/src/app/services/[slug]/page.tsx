@@ -35,7 +35,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             height="290"
           />
           <p className="eyebrow">{s.english}</p>
-          <h1>{s.title}</h1>
+          <h1>
+            {s.title.split('，').map((line, index) => (
+              <span key={line}>{index === 0 ? `${line}，` : line}</span>
+            ))}
+          </h1>
           <p className="lead">{s.description}</p>
           <Link
             href={`/contact/?service=${s.slug}`}

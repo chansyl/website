@@ -7,6 +7,7 @@ import {
   SquaresFour,
   LinkSimple,
   Stack,
+  Plus,
 } from '@phosphor-icons/react/dist/ssr';
 import { services, processSteps } from '@/content/services';
 import { Experience } from '@/components/experience';
@@ -197,7 +198,7 @@ export default function Home() {
                   <p>{p.short}</p>
                 </div>
                 <span className="step-toggle" aria-hidden="true">
-                  +
+                  <Plus size={16} />
                 </span>
               </summary>
               <div className="step-detail">

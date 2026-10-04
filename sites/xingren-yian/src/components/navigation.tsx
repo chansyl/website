@@ -63,6 +63,7 @@ export function Header() {
       </div>
       <dialog
         id="mobile-menu"
+        aria-label="网站导航"
         className="mobile-menu"
         ref={dialog}
         onCancel={close}

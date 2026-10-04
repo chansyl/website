@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight, EnvelopeSimple, Phone } from '@phosphor-icons/react/dist/ssr';
+import { ArrowUpRight, ArrowUp, EnvelopeSimple, Phone } from '@phosphor-icons/react/dist/ssr';
 import { services } from '@/content/services';
 import { site } from '@/lib/site';
 export function Footer() {
@@ -42,7 +42,9 @@ export function Footer() {
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} 行人易安科技</span>
         <span>为每一块屏幕，用心设计。</span>
-        <Link href="/#main">回到起点 ↑</Link>
+        <Link href="/#main">
+          回到起点 <ArrowUp size={12} style={{ display: 'inline', verticalAlign: 'middle' }} />
+        </Link>
       </div>
     </footer>
   );
